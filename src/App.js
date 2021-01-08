@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import {
   ChakraProvider,
   Box,
   Container,
+  VStack,
   Text,
   Link,
-  VStack,
+  HStack,
+  Stack,
+  Circle,
   Code,
   Grid,
+  GridItem,
   theme,
   Flex,
   Heading,
@@ -15,37 +20,25 @@ import {
   Button,
   Center,
   Divider,
+  useColorMode,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { Logo } from './Logo';
 import SpellsTable from './components/spellsTable';
 import NavBar from './components/navBar';
 import customTheme from './utils/theme';
 
-class App extends Component {
-  state = {};
-  render() {
-    return (
-      // <ChakraProvider theme={theme}>
-      //   <Box textAlign="center" fontSize="xl">
-      //     <Grid minH="100vh" p={3}>
-      //       <ColorModeSwitcher justifySelf="flex-end" />
-      //       <VStack spacing={8}>
-      //         <SpellsTable />
-      //       </VStack>
-      //     </Grid>
-      //   </Box>
-      // </ChakraProvider>
-      <ChakraProvider theme={customTheme}>
-        <NavBar position="fixed" />
-        <Container maxW="xl" pt={32} centerContent>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <Divider />
-          <SpellsTable />
-        </Container>
-      </ChakraProvider>
-    );
-  }
+function App() {
+  return (
+    <ChakraProvider theme={customTheme}>
+      <Stack position="fixed" w="100%" spacing={0} mt={-36}>
+        <NavBar />
+      </Stack>
+      <Container maxW="xl" mt={36} centerContent>
+        <SpellsTable />
+      </Container>
+    </ChakraProvider>
+  );
 }
 
 export default App;
