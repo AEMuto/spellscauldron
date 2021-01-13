@@ -26,16 +26,6 @@ function SpellsTable() {
         accessor: 'school',
       },
       {
-        Header: 'C.',
-        accessor: 'concentration',
-        isBoolean: true,
-      },
-      {
-        Header: 'R.',
-        accessor: 'ritual',
-        isBoolean: true,
-      },
-      {
         Header: 'Range',
         accessor: 'range',
       },
@@ -56,7 +46,7 @@ function SpellsTable() {
   } = useTable({ columns, data }, useSortBy);
 
   return (
-    <Table {...getTableProps()}>
+    <Table variant="striped" size="sm">
       <Thead>
         {headerGroups.map(headerGroup => (
           <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -66,7 +56,7 @@ function SpellsTable() {
                 isBoolean={column.isBoolean}
               >
                 {column.render('Header')}
-                <chakra.span pl="4">
+                <chakra.span>
                   {column.isSorted ? (
                     column.isSortedDesc ? (
                       <TriangleDownIcon aria-label="sorted descending" />
