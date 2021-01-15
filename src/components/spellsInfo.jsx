@@ -1,9 +1,7 @@
 import { Box, Divider, Heading, Text } from '@chakra-ui/react';
 import React from 'react';
-import spells from '../data/spells.json';
 
-function SpellsInfo(props) {
-  const data = React.useMemo(() => spells, []);
+function SpellsInfo({ data }) {
   return (
     <Box>
       <Heading mb={2}>{data[0].name}</Heading>
