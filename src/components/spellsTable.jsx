@@ -48,7 +48,10 @@ function SpellsTable({ data, getRowProps = () => ({}) }) {
         {headerGroups.map(headerGroup => (
           <Tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
+              <Th
+                p={1}
+                {...column.getHeaderProps(column.getSortByToggleProps())}
+              >
                 {column.render('Header')}
                 <chakra.span>
                   {column.isSorted ? (
@@ -70,7 +73,9 @@ function SpellsTable({ data, getRowProps = () => ({}) }) {
           return (
             <Tr {...row.getRowProps(getRowProps(row))}>
               {row.cells.map(cell => (
-                <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+                <Td p={1} {...cell.getCellProps()}>
+                  {cell.render('Cell')}
+                </Td>
               ))}
             </Tr>
           );
