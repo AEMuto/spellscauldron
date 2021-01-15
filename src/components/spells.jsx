@@ -103,7 +103,9 @@ function Spells() {
           </Flex>
         </Flex>
         <Flex direction="column" flex="1" m={2} position="relative">
-          <SpellsInfo spellData={spellData ? spellData[0] : data[0]} />
+          <Flex overflowY="auto" mr={-4} pr={4}>
+            <SpellsInfo spellData={spellData ? spellData[0] : data[0]} />
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
