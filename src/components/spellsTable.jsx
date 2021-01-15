@@ -3,7 +3,7 @@ import { Table, Thead, Tbody, Tr, Th, Td, chakra } from '@chakra-ui/react';
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
 import { useTable, useSortBy } from 'react-table';
 
-function SpellsTable({ data }) {
+function SpellsTable({ data, getRowProps = () => ({}) }) {
   const columns = React.useMemo(
     () => [
       {
@@ -43,15 +43,12 @@ function SpellsTable({ data }) {
   } = useTable({ columns, data }, useSortBy);
 
   return (
-    <Table variant="striped" size="sm">
+    <Table variant="striped" size="sm" {...getTableProps()}>
       <Thead>
         {headerGroups.map(headerGroup => (
           <Tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <Th
-                {...column.getHeaderProps(column.getSortByToggleProps())}
-                isBoolean={column.isBoolean}
-              >
+              <Th {...column.getHeaderProps(column.getSortByToggleProps())}>
                 {column.render('Header')}
                 <chakra.span>
                   {column.isSorted ? (
@@ -71,11 +68,9 @@ function SpellsTable({ data }) {
         {rows.map(row => {
           prepareRow(row);
           return (
-            <Tr {...row.getRowProps()}>
+            <Tr {...row.getRowProps(getRowProps(row))}>
               {row.cells.map(cell => (
-                <Td {...cell.getCellProps()} isBoolean={cell.column.isBoolean}>
-                  {cell.render('Cell')}
-                </Td>
+                <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
               ))}
             </Tr>
           );

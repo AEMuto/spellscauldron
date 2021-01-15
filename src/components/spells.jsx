@@ -1,11 +1,4 @@
-import {
-  Flex,
-  Button,
-  Slider,
-  SliderTrack,
-  SliderFilledTrack,
-  SliderThumb,
-} from '@chakra-ui/react';
+import { Flex, Button } from '@chakra-ui/react';
 import React from 'react';
 import SpellsTable from './spellsTable';
 import SpellsInfo from './spellsInfo';
@@ -14,12 +7,27 @@ import spells from '../data/spells.json';
 function Spells() {
   const savedSpells = React.useMemo(() => spells, []);
   const [data, setData] = React.useState(savedSpells); // React.useMemo(() => spells, []);
+  const [spellData, setSpellData] = React.useState();
 
   function handleLevel(level) {
     setData(savedSpells.filter(spell => spell.level_int === level));
   }
+  function handleClass(className) {
+    setData(savedSpells.filter(spell => spell.class.includes(className)));
+  }
   function handleReset() {
     setData(savedSpells);
+  }
+  function getSpellInfo() {
+    return row => ({
+      onClick: () => {
+        setSpellData(data.filter(spell => spell.name === row.values.name));
+        console.log(spellData);
+      },
+      style: {
+        cursor: 'pointer',
+      },
+    });
   }
   return (
     <Flex
@@ -48,6 +56,14 @@ function Spells() {
           position="relative"
         >
           <Flex wrap="wrap">
+            <Button
+              size="sm"
+              mr={2}
+              mb={2}
+              onClick={() => handleClass('Warlock')}
+            >
+              Warlock
+            </Button>
             <Button size="sm" mr={2} mb={2} onClick={() => handleLevel(0)}>
               Cantrip
             </Button>
@@ -83,11 +99,11 @@ function Spells() {
             </Button>
           </Flex>
           <Flex overflowY="auto" fontSize=".8em">
-            <SpellsTable data={data} />
+            <SpellsTable data={data} getRowProps={getSpellInfo()} />
           </Flex>
         </Flex>
         <Flex direction="column" flex="1" m={2} position="relative">
-          <SpellsInfo data={data} />
+          <SpellsInfo spellData={spellData ? spellData[0] : data[0]} />
         </Flex>
       </Flex>
     </Flex>
